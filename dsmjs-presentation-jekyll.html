@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Building Static Sites w/ Jekyll</title>
+    <style type="text/css">
+      @import url(//fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(//fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(//fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        -moz-border-radius: 5px;
+        -web-border-radius: 5px;
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+                /**
+       * Icons
+       */
+      .icon > svg {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        vertical-align: middle; }
+        .icon > svg path {
+          fill: #828282; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Building Static Sites w/ Jekyll
+[dsmjs.com](http://dsmjs.com/)
+January 13, 2015
+---
+layout: false
+.left-column[
+  ## Who am I?
+]
+.right-column[
+
+Justin, work remotely @ Principal in Janesville Office
+
+<div class="footer-col  footer-col-2">
+<ul class="social-media-list">
+  <li>
+    <a href="https://github.com/justinmusgrove">
+      <span class="icon  icon--github">
+        <svg viewBox="0 0 16 16">
+          <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+        </svg>
+      </span>
+
+      <span class="username">justinmusgrove</span>
+    </a>
+  </li>
+  <li>
+    <a href="https://twitter.com/jstnm">
+      <span class="icon  icon--twitter">
+        <svg viewBox="0 0 16 16">
+          <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+          c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+        </svg>
+      </span>
+
+      <span class="username">jstnm</span>
+    </a>
+  </li>
+</ul>
+</div>
+
+]
+---
+.left-column[
+  ## Who am I?
+  ## Quick history
+]
+.right-column[
+
+- Lots of code reviews
+
+- Explored WP, Joomla, DRUPAL, etc
+
+- $, crappy formatting of code, etc
+
+- Landed on Jekyll, static site generator
+]
+---
+.left-column[
+  ## Who am I?
+  ## Quick history
+  ## What will we cover?
+]
+.right-column[
+
+- "Getting started with Jekyll"
+
+- Walk through
+
+- Deployment options
+
+- Wrap up
+]
+---
+template: inverse
+
+## Jekyll
+---
+layout: false
+.left-column[
+  ## What is it?
+]
+.right-column[
+
+- Static site generator
+
+- Ruby + liquid + YAML + Markdown
+
+- Referred to a "Hacker" blog
+
+]
+---
+.left-column[
+  ## What is it?
+  ## Why use it?
+]
+.right-column[
+
+- Simple
+
+- No database
+
+- Fast 
+
+- Control
+
+- No worries (upgrades, security, load, etc)
+
+- Contains all the same things you grown to love w/ serverside 
+
+  - layout/templates, includes, pagination
+]
+---
+.left-column[
+  ## What is it?
+  ## Why use it?
+  ## How does it work?
+]
+.right-column[
+
+- Generate web assets (HTML/CSS/JS) locally
+
+- Deploy to server
+
+]
+---
+template: inverse
+
+## Hosting
+---
+layout: false
+.left-column[
+  ## Github
+]
+.right-column[
+
+- [Github pages](https://pages.github.com/) built by jekyll
+
+- yourrepo.github.io
+
+- Custom domain
+
+- Multiple project
+
+- FREE
+
+]
+---
+.left-column[
+  ## Github
+  ## Amazon S3
+]
+.right-column[
+
+- More control
+
+- Private (in a sense)
+
+- [s3_website](https://github.com/laurilehmijoki/s3_website)
+
+- Free (practically)
+
+]
+---
+.left-column[
+  ## Github
+  ## Amazon S3
+  ## Or...
+]
+.right-column[
+
+- Any webserver
+
+]
+--- 
+---
+template: inverse
+
+## Walk through
+---
+layout: false
+.left-column[
+  ## Place holder
+]
+.right-column[
+
+* Create new project -> www.justinmusgrove.com
+
+Code - Initial project creation
+
+* jekyll new justinmusgrove.github.io
+* jekyll serve --watch 
+
+Code - Create members of site
+
+* Create _data 
+* members.json and members.md
+
+Code - Collections
+
+* modify config
+* _collections
+* _api
+
+]
+---
+.left-column[
+  ## Place holder
+  ## Place holder
+]
+.right-column[
+
+- Stuff
+
+] 
+---
+template: inverse
+
+## Not so static, static site generator?
+---
+
+  Using a static site generator challenges us to find solutions at build time vs render time
+
+- Bunch of back end processes feeding data to jekyll
+
+Are you ok with almost "live" data for the sake of 
+
+- page performance
+
+- reduce complexity and maintenance 
+
+---
+template: inverse
+
+## Wrap up
+---
+layout: false
+.left-column[
+  ## What else?
+]
+.right-column[
+
+- Performance (page regeneration, ruby, liquid)
+
+- [Installing on windows sucks](http://jekyllrb.com/docs/windows/) 
+
+- [Jekyll 3.0](https://byparker.com/blog/2014/jekyll-3-the-road-ahead/)
+
+- Debates on marriage b/t Jekyll and github
+  
+  - Is jekyll just serving the need of github or the entire community
+
+- [Jekyll grunt plugin](https://www.npmjs.com/package/grunt-jekyll)
+  
+  - control build to enviroments
+  - grunt eco system 
+  - lack of ruby of experience
+
+- [Octopress](http://octopress.org/)
+]
+---
+.left-column[
+  ## What else?
+  ## Ideas
+]
+.right-column[
+
+- Static site themes
+
+- Create jekyll based editing for server side for non developers
+
+] 
+---
+.left-column[
+  ## What else?
+  ## Ideas
+  ## Other jekyll sites
+]
+.right-column[
+
+Lots of other sites built with jekyll and hosted on github
+
+* [Mockito](http://site.mockito.org/)
+
+* [Springframework](http://spring.io/projects)
+
+* [dsmjs](http://dsmjs.com/)
+
+* [HealthCare.gov](HealthCare.gov)
+
+* [csswizardry](csshttp://csswizardry.com/about/#colophon)
+] 
+---
+.left-column[
+  ## What else?
+  ## Ideas
+  ## Other jekyll sites
+  ## Resources
+]
+.right-column[
+
+- [Jekyllrb](http://jekyllrb.com/)
+
+- [Github pages](https://pages.github.com/)
+
+- [Liquid for designers](https://github.com/Shopify/liquid/wiki/Liquid-for-Designers)
+
+- [AsciiDoc text generaton](http://www.methods.co.nz/asciidoc/)
+
+- [Lots of other static generators](https://www.staticgen.com/)
+
+- [Github guides](https://help.github.com/categories/github-pages-basics/)
+] 
+
+
+---
+name: last-page
+template: inverse
+
+## Questions?
+
+Slideshow created using [remark](http://github.com/gnab/remark).
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>
+      var slideshow = remark.create({
+          highlightStyle: 'monokai',
+          highlightLanguage: 'remark'
+        }) ;
+    </script>
+  </body>
+</html>
