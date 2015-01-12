@@ -199,9 +199,9 @@ Justin, work remotely @ Principal in Janesville Office
 
 - "Getting started with Jekyll"
 
-- Walk through
-
 - Deployment options
+
+- Walk through
 
 - Wrap up
 ]
@@ -220,7 +220,7 @@ layout: false
 
 - Ruby + liquid + YAML + Markdown
 
-- Referred to a "Hacker" blog
+- Referred to a "Hacker" blog platform
 
 ]
 ---
@@ -274,7 +274,7 @@ layout: false
 
 - Custom domain
 
-- Multiple project
+- Multiple projects
 
 - FREE
 
@@ -314,38 +314,45 @@ template: inverse
 ---
 layout: false
 .left-column[
-  ## Place holder
+  ## New project
 ]
 .right-column[
 
-* Create new project -> www.justinmusgrove.com
+- Create new project -> justinmusgrove.github.io
 
-Code - Initial project creation
+  ```
+  jekyll new justinmusgrove.github.io
+  jekyll serve --watch
+  ```
 
-* jekyll new justinmusgrove.github.io
-* jekyll serve --watch 
-
-Code - Create members of site
-
-* Create _data 
-* members.json and members.md
-
-Code - Collections
-
-* modify config
-* _collections
-* _api
-
+- Understand directory structure
 ]
 ---
 .left-column[
-  ## Place holder
-  ## Place holder
+  ## New project
+  ## Custom data
 ]
 .right-column[
 
-- Stuff
+- <code>_data</code> 
 
+- Supports YAML, JSON, and CSV 
+
+- Create member listing members.json + members.md
+] 
+---
+.left-column[
+  ## New project
+  ## Custom data
+  ## Collections
+]
+.right-column[
+
+- Ability to specify unqiue behavior in <code>_config.yml</code>
+
+- Like pages or posts
+
+- Exercise: create local api <code>/api/user_timeline.json</code>
 ] 
 ---
 template: inverse
@@ -375,6 +382,13 @@ layout: false
 .right-column[
 
 - Performance (page regeneration, ruby, liquid)
+  
+  ```yaml  
+  #_config.yml
+  exclude: [
+   'some/directory', 
+   'some/other/directory']
+  ```
 
 - [Installing on windows sucks](http://jekyllrb.com/docs/windows/) 
 
